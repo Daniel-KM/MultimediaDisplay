@@ -59,7 +59,7 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'The width of the Ohms Viewer panel through which the public views the content of this book. Accepts syntax "250px", "250", or "70%". If an integer is given, it is interpreted as a number of pixels.',
+                'description' => 'The width of the Ohms Viewer panel through which the public views the content of this book. Accepts syntax "250px", "250", or "70%".',
                 'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
@@ -68,11 +68,11 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
             array(
                 'name' => 'height',
                 'label' => 'Height',
-                'description' => 'The height of the Ohms Viewer panel through which the public views the content of this book. Accepts syntax "250px", "250", or "70%". If an integer is given, it is interpreted as a number of pixels.',
+                'description' => 'The height of the Ohms Viewer panel through which the public views the content of this book. Accepts syntax "250px", "250", or "70%".',
                 'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '500'
+                'default' => '500px',
             ),
             array(
                 'name' => 'cacheFileName',
@@ -314,4 +314,3 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
         return ob_get_clean();
     }
 }
-?>

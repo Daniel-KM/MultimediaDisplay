@@ -59,20 +59,20 @@ class Mmd_MediaElement_Viewer extends Mmd_Abstract_Viewer
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'Width of the media display (integer number of pixels)',
-                'type' => 'int',
+                'description' => 'Width of the media display',
+                'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '400'
+                'default' => '400px'
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
                 'description' => 'Height of the media display',
-                'type' => 'int',
+                'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '300'
+                'default' => '300px'
             )
         );
     }
@@ -134,5 +134,3 @@ class Mmd_MediaElement_Viewer extends Mmd_Abstract_Viewer
         return ob_get_clean();
     }
 }
-
-?>

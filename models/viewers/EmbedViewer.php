@@ -17,5 +17,3 @@ class Mmd_Embed_Viewer extends Mmd_Abstract_Viewer
         return 'test display';
     }
 }
-
-?>

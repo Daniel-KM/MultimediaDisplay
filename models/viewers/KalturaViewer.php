@@ -67,20 +67,20 @@ class Mmd_Kaltura_Viewer extends Mmd_Abstract_Viewer
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'The width in pixels of the BookReader panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The width of the Kaltura panel through which the public views the content of this document.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '600'
+                'default' => '600px',
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
-                'description' => 'The height in pixels of the BookReader panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The height of the Kaltura panel through which the public views the content of this document.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '400'
+                'default' => '400px',
             )
         );
     }
@@ -143,5 +143,3 @@ class Mmd_Kaltura_Viewer extends Mmd_Abstract_Viewer
     }
 
 }
-
-?>

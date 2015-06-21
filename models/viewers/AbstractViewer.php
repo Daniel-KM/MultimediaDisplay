@@ -141,5 +141,3 @@ abstract class Mmd_Abstract_Viewer
     }
 
 }
-
-?>

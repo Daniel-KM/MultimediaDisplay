@@ -63,7 +63,7 @@ class Mmd_PDF_Viewer extends Mmd_Abstract_Viewer
                 'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '800'
+                'default' => '800px'
             ),
             array(
                 'name' => 'height',
@@ -72,7 +72,7 @@ class Mmd_PDF_Viewer extends Mmd_Abstract_Viewer
                 'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '600'
+                'default' => '600px'
             )
         );
     }
@@ -148,10 +148,10 @@ class Mmd_PDF_Viewer extends Mmd_Abstract_Viewer
 
         <div id="pdf-pages-container">
 	        <div id="pdf-container-left" class="pdf-page-container">
-                   <canvas id="pdf-viewer-left" width="<?php echo $params['halfwidth'];?>" height="<?php echo $params['height'];?>"></canvas>
+                  <canvas id="pdf-viewer-left" width="<?php echo $params['width'];?>" height="<?php echo $params['height'];?>"></canvas>
 	        </div>
                 <div id="pdf-container-right" class="pdf-page-container">
-                    <canvas id="pdf-viewer-right" width="<?php echo $params['halfwidth'];?>" height="<?php echo $params['height'];?>"></canvas>
+                    <canvas id="pdf-viewer-right" width="<?php echo $params['width'];?>" height="<?php echo $params['height'];?>"></canvas>
 	        </div>
         </div>
 
@@ -262,5 +262,3 @@ right: 8%;
         return;
     }
 }
-
-?>

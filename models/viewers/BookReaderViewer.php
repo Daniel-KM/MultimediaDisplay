@@ -54,25 +54,25 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
                 //'value' => '',
                 'required' => 'false',
                 'default' => '',
-                'files' => 'bmp,jpg,gif,png'
+                'files' => 'bmp,jpg,jpeg,gif,png',
             ),
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'The width in pixels of the BookReader panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The width of the BookReader panel through which the public views the content of this book.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '800'
+                'default' => '800px',
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
-                'description' => 'The height in pixels of the BookReader panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The height of the BookReader panel through which the public views the content of this book.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '600'
+                'default' => '600px',
             )
         );
 
@@ -133,10 +133,10 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
         bookreader("bookreader", ArchiveBook("tomsawyer"));
 
         br.getPageWidth = function(index) {
-            return <?php echo $params['width'];?>;
+            return <?php echo (integer) $params['width']; ?>;
         }
         br.getPageHeight = function(index) {
-            return <?php echo $params['width'];?>;
+            return <?php echo (integer) $params['height']; ?>;
         }
         br.bookTitle= '';
         br.bookUrl  = 'http://openlibrary.org';
@@ -153,5 +153,3 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
         return true;
     }
 }
-
-?>

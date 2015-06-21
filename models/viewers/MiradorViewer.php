@@ -49,29 +49,29 @@ class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'The width in pixels of the Mirador panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The width of the Mirador panel through which the public views the content of this document.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '500'
+                'default' => '500px'
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
-                'description' => 'The height in pixels of the Mirador panel through which the public views the content of this book.',
-                'type' => 'int',
+                'description' => 'The height of the Mirador panel through which the public views the content of this document.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '500'
+                'default' => '500px'
             ),
             array(
                 'name' => 'thumbHeight',
                 'label' => 'Thumbnail Height',
-                'description' => 'The height in pixels of the thumbnail subpanel to preview other images.',
-                'type' => 'int',
+                'description' => 'The height of the thumbnail subpanel to preview other images.',
+                'type' => 'css',
                 //'value' => '',
                 'required' => 'false',
-                'default' => '250'
+                'default' => '250px'
             ),
             array(
                 'name' => 'title',
@@ -99,7 +99,7 @@ class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
                 //'value' => '',
                 'required' => 'false',
                 'default' => '',
-                'files' => 'jpg,png,gif,bmp'
+                'files' => 'jpg,jpeg,png,gif,bmp'
             ),
             array(
                 'name' => 'colTitle',
@@ -160,7 +160,4 @@ class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
 <?php
         return ob_get_clean();
     }
-
 }
-
-?>

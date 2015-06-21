@@ -54,25 +54,25 @@ class Mmd_PanZoom_Viewer extends Mmd_Abstract_Viewer
                 //'value' => '',
                 'required' => 'true',
                 'default' => '',
-                'files' => 'jpg,png,bmp,gif,tif'
+                'files' => 'jpg,jpeg,png,bmp,gif,tif',
             ),
             array(
                 'name' => 'width',
                 'label' => 'Width',
-                'description' => 'Width of the media display. Accepts syntax "250px", "250", or "70%". If an integer is given, it is interpreted as a number of pixels.',
+                'description' => 'Width of the media display. Accepts syntax "250px", "250", or "70%".',
                 'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '400'
+                'default' => '400px',
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
-                'description' => 'Height of the media display. Accepts syntax "250px", "250", or "70%". If an integer is given, it is interpreted as a number of pixels.',
+                'description' => 'Height of the media display. Accepts syntax "250px", "250", or "70%".',
                 'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '300'
+                'default' => '300px',
             )
         );
     }
@@ -107,8 +107,6 @@ class Mmd_PanZoom_Viewer extends Mmd_Abstract_Viewer
     public function getBodyHtml($params) 
     {
         $params = $this->_filterCssParams($params,array('width','height'));
-      // print_r($params);
-      //      die('pp');
          if(empty($params['image'])) {
             throw new Exception('Item cannot be displayed. No image location specified for PanZoom Viewer.');
             return;
@@ -195,5 +193,3 @@ class Mmd_PanZoom_Viewer extends Mmd_Abstract_Viewer
         return ;
     }
 }
-
-?>

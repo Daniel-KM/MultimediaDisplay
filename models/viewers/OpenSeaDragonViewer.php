@@ -68,19 +68,19 @@ class Mmd_OpenSeaDragon_Viewer extends Mmd_Abstract_Viewer
                 'name' => 'width',
                 'label' => 'Width',
                 'description' => 'Width of the media display',
-                'type' => 'int',
+                'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '400'
+                'default' => '400px',
             ),
             array(
                 'name' => 'height',
                 'label' => 'Height',
                 'description' => 'Height of the media display',
-                'type' => 'int',
+                'type' => 'css',
                 //'value' => '',    //for enum type only
                 'required' => 'false',
-                'default' => '300'
+                'default' => '300px'
             )
         );
     }
@@ -107,7 +107,7 @@ class Mmd_OpenSeaDragon_Viewer extends Mmd_Abstract_Viewer
     {
         ob_start();
         ?>
-        <div id="osd-viewer" width="<php echo $params['width'];?>px" height="<?php echo $params['height'];?>px"></div>
+        <div id="osd-viewer" width="<?php echo $params['width']; ?>" height="<?php echo $params['height'];?>"></div>
         <script>
         jQuery('#osd-viewer').prependTo(jQuery('primary'));
         var viewer = OpenSeaDragon({
@@ -120,5 +120,3 @@ class Mmd_OpenSeaDragon_Viewer extends Mmd_Abstract_Viewer
         return ob_get_clean();
     }
 }
-
-?>
