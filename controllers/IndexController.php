@@ -24,7 +24,13 @@ class MultimediaDisplay_IndexController extends Omeka_Controller_AbstractActionC
  */
   public function indexAction()
   {
-      if($this->_defaultsInstalled()) 
+        $viewers = apply_filters('multimedia_display_viewers', array());
+        foreach ($viewers as $slug => &$viewer) {
+            $viewer = $viewer['title'];
+        }
+        $this->view->viewers = $viewers;
+
+      if($this->_defaultsInstalled())
           $this->_helper->redirector->gotoUrl('multimedia-display/profile');
       else 
           $this->_helper->redirector->gotoUrl('multimedia-display/defaults');

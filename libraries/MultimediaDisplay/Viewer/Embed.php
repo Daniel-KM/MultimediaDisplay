@@ -11,7 +11,7 @@
  * Multimedia Display Embedded Content Viewer class
  * 
  */
-class Mmd_Embed_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_Embed extends MultimediaDisplay_Viewer_Abstract
 {
     public function display() {
         return 'test display';

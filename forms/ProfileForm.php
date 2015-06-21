@@ -89,17 +89,16 @@ class Mmd_Form_Profile extends Omeka_Form
         if($viewername != "") {
             $displayGroup = $this->_registerViewerElements($viewername,$profile);
         } else {
-            $viewers_string = get_option('mmd_supported_viewers');
-            $viewers = unserialize($viewers_string);
+            $viewers = apply_filters('multimedia_display_viewers', array());
             $order = 100;
-            foreach( $viewers as $viewerslug => $viewername ) {
-                
-                $displayGroup = $this->_registerViewerElements($viewerslug);     
+            foreach ($viewers as $slug => $viewer) {
+
+                $displayGroup = $this->_registerViewerElements($slug);
                 $this->addDisplayGroup(
                     $displayGroup,
-                    $viewerslug,
+                    $slug,
                     array(
-                        'legend' => $viewername.' Parameters',
+                        'legend' => __('Parameters for %s', $viewer['title']),
                         'order' => $order,
                         'class' => 'mmd-viewer-params-fieldset'
                     )
@@ -126,19 +125,20 @@ class Mmd_Form_Profile extends Omeka_Form
         ));
     }
 
-    private function _registerViewerElements($viewername,$profile = '') {
+    private function _registerViewerElements($viewerName, $profile = '') {
         static $order=3;
         $group = array();
-        require_once(dirname(dirname(__FILE__)).'/models/viewers/AbstractViewer.php');
-        require_once(dirname(dirname(__FILE__)).'/models/viewers/'.$viewername.'Viewer.php');
         if($profile==='')
           $profile = new MmdProfile();
-        $viewerClass = 'Mmd_'.$viewername."_Viewer";
+
+        $viewers = apply_filters('multimedia_display_viewers', array());
+        $viewerClass = $viewers[$viewerName]['class'];
         $viewer = new $viewerClass();
+
         $params = $viewer->getParameterInfo();
 
         foreach($params as $i => $param) {
-            $group[]=$viewername.'_'.$param['name'];
+            $group[]=$viewerName.'_'.$param['name'];
             $order++;
             $profile->getItemMap($param['name']);
             $unit = isset($param['unit']) ? $param['unit'] : '';
@@ -160,7 +160,7 @@ class Mmd_Form_Profile extends Omeka_Form
             switch($param['type']) {
 
             case 'string' :
-                $this->addElement('text',$viewername.'_'.$param['name'], 
+                $this->addElement('text',$viewerName.'_'.$param['name'],
                 array(
                     'label' => __($param['label']),
                     'class' => 'five columns alpha',
@@ -173,7 +173,7 @@ class Mmd_Form_Profile extends Omeka_Form
                 break;
 
             case 'int' :
-                $this->addElement('text',$viewername.'_'.$param['name'], 
+                $this->addElement('text',$viewerName.'_'.$param['name'],
                 array(
                     'label' => __($param['label']),
                     'class' => 'five columns alpha',
@@ -188,7 +188,7 @@ class Mmd_Form_Profile extends Omeka_Form
 
 
             case 'css' :
-             $this->addElement('text',$viewername.'_'.$param['name'], 
+             $this->addElement('text',$viewerName.'_'.$param['name'],
                    array(
                        'label' => __($param['label']),
                        'class' => 'five columns alpha',
@@ -204,7 +204,7 @@ class Mmd_Form_Profile extends Omeka_Form
                 break;
 
             case 'float' :
-                $this->addElement('text',$viewername.'_'.$param['name'],
+                $this->addElement('text',$viewerName.'_'.$param['name'],
                 array(
                     'label' => __($param['label']),
                     'class' => 'five columns alpha',
@@ -220,7 +220,7 @@ class Mmd_Form_Profile extends Omeka_Form
             case 'enum' :
                 $this->addElement(
                     'select',
-                    $viewername.'_'.$param['name'],
+                    $viewerName.'_'.$param['name'],
                     array(
                         'label' => __($param['label']),
                         'class' => 'five columns alpha',
@@ -317,7 +317,10 @@ class Mmd_Form_Profile extends Omeka_Form
     }
 
     private function _getViewerOptions() {
-        $viewers = unserialize(get_option('mmd_supported_viewers'));
+        $viewers = apply_filters('multimedia_display_viewers', array());
+        foreach ($viewers as $slug => &$viewer) {
+            $viewer = $viewer['title'];
+        }
         $viewers = array_merge(array('0'=>'Select Viewer'),$viewers);
         return $viewers;
     }

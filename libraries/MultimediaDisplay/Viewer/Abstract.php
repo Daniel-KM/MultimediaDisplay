@@ -11,7 +11,7 @@
  * Multimedia Display Abstract Viewer class
  * 
  */
-abstract class Mmd_Abstract_Viewer
+abstract class MultimediaDisplay_Viewer_Abstract
 {
     public $name;
     public $defaultProfileName;

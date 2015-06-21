@@ -11,7 +11,7 @@
  * Multimedia Display MediaElement Viewer class
  * 
  */
-class Mmd_MediaElement_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_MediaElement extends MultimediaDisplay_Viewer_Abstract
 {
 
     public function __construct() {

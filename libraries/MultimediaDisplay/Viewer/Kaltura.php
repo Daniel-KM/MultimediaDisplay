@@ -11,7 +11,7 @@
  * Multimedia Display Kaltura Viewer class
  * 
  */
-class Mmd_Kaltura_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_Kaltura extends MultimediaDisplay_Viewer_Abstract
 {
 
     public function __construct() {

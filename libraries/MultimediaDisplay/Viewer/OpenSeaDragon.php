@@ -11,7 +11,7 @@
  * Multimedia Display OpenSeaDragon Viewer class
  * 
  */
-class Mmd_OpenSeaDragon_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_OpenSeaDragon extends MultimediaDisplay_Viewer_Abstract
 {
 
     public function __construct() {

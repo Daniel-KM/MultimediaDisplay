@@ -25,7 +25,6 @@ class MultimediaDisplayPlugin extends Omeka_Plugin_AbstractPlugin
      * @var array Options for the plugin.
      */
     protected $_options = array(
-        'mmd_supported_viewers'=>''
     );
 
     /**
@@ -44,7 +43,10 @@ class MultimediaDisplayPlugin extends Omeka_Plugin_AbstractPlugin
     /**
      * @var array Filters for the plugin.
      */
-    protected $_filters = array('admin_navigation_main');
+    protected $_filters = array(
+        'admin_navigation_main',
+        'multimedia_display_viewers',
+    );
 
     /**
      * Define the plugin's access control list.
@@ -157,27 +159,11 @@ class MultimediaDisplayPlugin extends Omeka_Plugin_AbstractPlugin
         }
 
         $this->_installOptions();
-        //$viewerDir = dirname(__FILE__).'/models/viewers/';
-        //require_once($viewerDir.'AbstractViewer.php');
-
-        $viewers = array(
-            //'Mirador'=>'Mirador',
-            'Ohms'=>'OHMS Viewer',
-            'MediaElement'=>'MediaElement.js',
-            'BookReader'=>'Internet Archive Book Reader',
-            'PanZoom'=>'PanZoom Image Zooming',
-            'OpenSeaDragon'=>'OpenSeaDragon Jpeg2000 Viewer',
-            'PDF'=>'Embedded PDF Viewer',
-            'Kaltura'=>'Kaltura',
-//            'Youtube'=>'Youtube'
-        );
-        set_option('mmd_supported_viewers',serialize($viewers));
 /*
-        foreach($viewers as $viewerName => $viewerDisplayName) {
-            $viewerFileName = $viewerName.'Viewer.php';
-            $viewerClassName = 'Mmd_'.$viewerName.'_Viewer';
-            require_once($viewerDir.$viewerFileName);
-            $viewer = new $viewerClassName();
+        $viewers = $this->filterMultimediaDisplayViewers(array());
+        foreach ($viewers as $slug => $viewer) {
+            $viewerClass = $viewer['class'];
+            $viewer = new $viewerClass();
             $viewer->installDefaults();
        } 
 */
@@ -236,13 +222,64 @@ class MultimediaDisplayPlugin extends Omeka_Plugin_AbstractPlugin
     /**
      * Add viewer markup to admin item display pages
      * (or not)
-     * 
+     *
      * @param array $args An array of parameters passed by the hook
      * @return void
      */
     public function hookAdminItemsShow($args)
     {
-       
+
     }
 
+    /**
+     * Add the viewers that are available.
+     *
+     * @param array $viewers List of supported viewers.
+     * @return array Filtered list of supported viewers.
+    */
+    public function filterMultimediaDisplayViewers($viewers)
+    {
+        // Available default viewers managed by the plugin, ordered by title.
+        $viewers['PDF'] = array(
+            'title' => 'Embedded PDF Viewer',
+            'class' => 'MultimediaDisplay_Viewer_PDF',
+        );
+        $viewers['Kaltura'] = array(
+            'title' => 'Kaltura',
+            'class' => 'MultimediaDisplay_Viewer_Kaltura',
+        );
+        $viewers['BookReader'] = array(
+            'title' => 'Internet Archive Book Reader',
+            'class' => 'MultimediaDisplay_Viewer_BookReader',
+        );
+        $viewers['MediaElement'] = array(
+            'title' => 'MediaElement.js',
+            'class' => 'MultimediaDisplay_Viewer_MediaElement',
+        );
+        /*
+        $viewers['Mirador'] = array(
+            'title' => 'Mirador',
+            'class' => 'MultimediaDisplay_Viewer_Mirador',
+        );
+        */
+        $viewers['Ohms'] = array(
+            'title' => 'OHMS Viewer',
+            'class' => 'MultimediaDisplay_Viewer_Ohms',
+        );
+        $viewers['OpenSeaDragon'] = array(
+            'title' => 'OpenSeaDragon Jpeg2000 Viewer',
+            'class' => 'MultimediaDisplay_Viewer_OpenSeaDragon',
+        );
+        $viewers['PanZoom'] = array(
+            'title' => 'PanZoom Image Zooming',
+            'class' => 'MultimediaDisplay_Viewer_PanZoom',
+        );
+        /*
+        $viewers['Youtube'] = array(
+            'title' => 'Youtube',
+            'class' => 'MultimediaDisplay_Viewer_Youtube',
+        );
+        */
+        return $viewers;
+    }
 }

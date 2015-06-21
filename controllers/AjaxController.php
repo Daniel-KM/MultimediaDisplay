@@ -26,7 +26,8 @@ class MultimediaDisplay_AjaxController extends Omeka_Controller_AbstractActionCo
 
     $viewerName = $this->_getParam('viewer', null);
 
-    $viewerClass = 'Mmd_'.$viewername."_Viewer";
+    $viewers = apply_filters('multimedia_display_viewers', array());
+    $viewerClass = $viewers[$viewerName]['class'];
     $viewer = new $viewerClass();
     $params = $viewer->getParameterInfo();
             

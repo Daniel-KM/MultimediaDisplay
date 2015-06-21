@@ -76,18 +76,13 @@ class MmdProfile extends Omeka_Record_AbstractRecord
     }
 
     public function setViewerByName($viewerName) {
-        $this->viewer = $viewerName;
-        $viewerDir = dirname(dirname(__FILE__)).'/models/viewers/';
-        $viewerFileName = $viewerName.'Viewer.php';
-        $viewerClassName = 'Mmd_'.$viewerName.'_Viewer';
-        require_once($viewerDir.'AbstractViewer.php');
-        require_once($viewerDir.$viewerFileName);
-        $viewer = new $viewerClassName();
-        $this->_viewer = new $viewerClassName();
+        $viewers = apply_filters('multimedia_display_viewers', array());
+        $viewerClass = $viewers[$viewerName]['class'];
+        $viewer = new $viewerClass();
+        $this->setViewer($viewer);
     }
 
     public function setViewer($viewer) {
-//        echo '<br>setting viewer:<br>';
         $this->_viewer = $viewer;
         $this->viewer = $viewer->name;
     }

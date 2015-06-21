@@ -11,7 +11,7 @@
  * Multimedia Display Mirador Viewer class
  * 
  */
-class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_Mirador extends MultimediaDisplay_Viewer_Abstract
 {
     
     public function __construct() {

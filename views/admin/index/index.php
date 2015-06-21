@@ -10,8 +10,6 @@
 mmd_admin_header(array('Multimedia Display','Edit Plugin Settings'));
 echo $this->partial('mmd-navigation.php');
 
-$viewers = unserialize(get_option('mmd_supported_viewers'));
-
 ?>
 
 <div id="primary">

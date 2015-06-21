@@ -11,7 +11,7 @@
  * Multimedia Display BookReader Viewer class
  * 
  */
-class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
+class MultimediaDisplay_Viewer_BookReader extends MultimediaDisplay_Viewer_Abstract
 {
 
     public function __construct() {

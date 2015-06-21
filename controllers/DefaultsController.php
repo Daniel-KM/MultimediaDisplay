@@ -15,9 +15,12 @@ class MultimediaDisplay_DefaultsController extends Omeka_Controller_AbstractActi
 
     public function indexAction() 
     {
-        
-        $this->view->viewers = unserialize(get_option('mmd_supported_viewers'));
+        $viewers = apply_filters('multimedia_display_viewers', array());
+        foreach ($viewers as $slug => &$viewer) {
+            $viewer = $viewer['title'];
+       }
 
+        $this->view->viewers = $viewers;
     }
  
 /**
@@ -28,19 +31,24 @@ class MultimediaDisplay_DefaultsController extends Omeka_Controller_AbstractActi
   public function installAction()
   {
     if(isset($_REQUEST['viewer']))
-       $viewername = $_REQUEST['viewer'];
+       $viewerName = $_REQUEST['viewer'];
 
     //initialize flash messenger for success or fail messages
     $flashMessenger = $this->_helper->FlashMessenger;
 
-    try{
-        require_once(dirname(dirname(__FILE__)).'/models/viewers/AbstractViewer.php');
-        require_once(dirname(dirname(__FILE__)).'/models/viewers/'.$viewername.'Viewer.php');
-        $viewerClass = 'Mmd_'.$viewername."_Viewer";
-        $viewer = new $viewerClass();
-        $successMessage = $viewer->installDefaults();
-    } catch (Exception $e){
-      $flashMessenger->addMessage($e->getMessage(),'error');
+    $viewers = apply_filters('multimedia_display_viewers', array());
+    if (!isset($viewers[$viewerName]['class'])) {
+        $flashMessenger->addMessage($e->getMessage(),'error');
+    }
+    else {
+        $viewerClass = $viewers[$viewerName]['class'];
+        try{
+            // Use Zend autoload.
+            $viewer = new $viewerClass();
+            $successMessage = $viewer->installDefaults();
+        } catch (Exception $e) {
+            $flashMessenger->addMessage($e->getMessage(),'error');
+        }
     }
 
     if(!empty($successMessage))
