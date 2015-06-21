@@ -92,11 +92,7 @@ class Mmd_OpenSeaDragon_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $libUrl = absolute_url('plugins/MultimediaDisplay/libraries/openseadragon/');
-        $libUrl = str_replace('admin/','',$libUrl);
-
-        queue_js_url($libUrl.'openseadragon.min.js');
-        
+        queue_js_file('openseadragon.min', 'javascripts/openseadragon');
     }
 
     /**

@@ -140,11 +140,8 @@ class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $liburl = absolute_url('/plugins/MultimediaDisplay/libraries/mirador/');
-        $liburl = str_replace('admin/','',$liburl);
-
-        queue_js_url($liburl.'mirador.js');
-
+        queue_css_file('mirador-combined.min', 'all', false, 'javascripts/mirador/css');
+        queue_js_file('mirador.min', 'javascripts/mirador');
     }
 
     /**
@@ -156,13 +153,11 @@ class Mmd_Mirador_Viewer extends Mmd_Abstract_Viewer
      * linking to stylesheets and javascript libraries
      */
     public function getBodyHtml($params) {
-        $liburl = absolute_url('plugins/MultimediaDisplay/libraries/bookreader/');
-        $liburl = str_replace('admin/','',$liburl);
         ob_start();
 ?>
         <div id="viewer"></div>
-        <script type="text/javascript" src="<?php echo($liburl.'MiradorDeploy.js'); ?>" />
-        <?php
+        <script type="text/javascript" src="<?php echo src('javascripts/mirador/MiradorDeploy.js'); ?>" />
+<?php
         return ob_get_clean();
     }
 

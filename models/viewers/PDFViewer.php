@@ -94,22 +94,21 @@ class Mmd_PDF_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $liburl = absolute_url('/plugins/MultimediaDisplay/libraries/pdf/','',array(),true);
-        $liburl = str_replace('admin/','',$liburl);
+        queue_js_file('util', 'javascripts/pdf/src/shared');
+        queue_js_file(array(
+                'api',
+                'metadata',
+                'canvas',
+                'webgl',
+                'pattern_helper',
+                'font_loader',
+                'annotation_helper',
+            ), 'javascripts/pdf/src/display');
 
-        queue_js_url($liburl.'src/shared/util.js');
-        queue_js_url($liburl.'src/display/api.js');
-        queue_js_url($liburl.'src/display/metadata.js');
-        queue_js_url($liburl.'src/display/canvas.js');
-        queue_js_url($liburl.'src/display/webgl.js');
-        queue_js_url($liburl.'src/display/pattern_helper.js');
-        queue_js_url($liburl.'src/display/font_loader.js');
-        queue_js_url($liburl.'src/display/annotation_helper.js');
+        queue_js_string('PDFJS.workerSrc = ' . json_encode(src('javascripts/pdf/src/worker_loader.js')) . ';');
+        queue_js_string('pdfFile = ' . json_encode($params['url'][0]['url']) . ';');
 
-        queue_js_string('PDFJS.workerSrc = \''.$liburl.'src/worker_loader.js\';');
-        queue_js_string('pdfFile = \''.$params['url'][0]['url'].'\';');
-
-        queue_js_url($liburl.'displayPDF.js');
+        queue_js_file('displayPDF', 'javascripts/pdf');
     }
 
     /**

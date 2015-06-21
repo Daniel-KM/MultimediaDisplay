@@ -84,11 +84,8 @@ class Mmd_MediaElement_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $libUrl = absolute_url('plugins/MultimediaDisplay/libraries/mediaelement/build/');
-        $libUrl = str_replace('admin/','',$libUrl);
-
-        queue_js_url($libUrl.'mediaelement-and-player.min.js');
-        queue_css_url($libUrl.'mediaelementplayer.css');
+        queue_css_file('mediaelementplayer', 'all', false, 'javascripts/mediaelement/build');
+        queue_js_file('mediaelement-and-player.min', 'javascripts/mediaelement/build');
     }
 
     /**

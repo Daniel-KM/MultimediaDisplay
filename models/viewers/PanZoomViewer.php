@@ -84,11 +84,8 @@ class Mmd_PanZoom_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $libUrl = absolute_url('plugins/MultimediaDisplay/libraries/panzoom/');
-        $libUrl = str_replace('admin/','',$libUrl);
-
-        queue_js_url($libUrl.'panzoom.js');
-//        queue_css_url($libUrl.'mediaelementplayer.css');
+        // queue_css_file('mediaelementplayer', 'all', false, 'javascripts/panzoom');
+        queue_js_file('panzoom', 'javascripts/panzoom');
     }
 
     private function _filterCssParams($params,$indices) {

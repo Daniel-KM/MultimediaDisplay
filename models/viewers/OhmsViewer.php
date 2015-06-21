@@ -95,9 +95,8 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        $libDir = dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/';
-
-        $config = parse_ini_file($libDir."config/config.ini",true);
+        $configIni = physical_path_to('javascripts/ohmsviewer/config/config.ini');
+        $config = parse_ini_file($configIni, true);
 
         if(empty($params['cacheFileName'])) {
             throw new Exception('Item cannot be displayed. No cache file specified for Ohms Viewer.');
@@ -105,36 +104,40 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
         }
 
         $cachefile = is_array($params['cacheFileName']) ? $params['cacheFileName'][0] : $params['cacheFileName'];
-        require_once $libDir.'lib/CacheFile.class.php';
+        require_once physical_path_to('javascripts/ohmsviewer/lib/CacheFile.class.php');
 
-        $liburl = absolute_url('/plugins/MultimediaDisplay/libraries/ohmsviewer/');
-        $liburl = str_replace('admin/','',$liburl);
+        queue_css_file(array(
+                'viewer',
+                'jquery-ui.toggleSwitch',
+                'jquery-ui-1.8.16.custom',
+                'font-awesome',
+                'jquery.fancybox',
+                'jquery.fancybox-buttons',
+                'jquery.fancybox-thumbs',
+                'jplayer.blue.monday',
+            ), 'all', false, 'javascripts/ohmsviewer/css');
 
-        $cssurl = $liburl.'css/';
-        $jsurl = $liburl.'js/';
+        // Use the default location for css in view or theme directory.
+        if (!empty($config['css'])) {
+            queue_css_file($config['css']);
+        }
 
-        //queue_css_url($cssurl.$config['css']);
+        queue_js_file(array(
+                'jquery',
+                'jquery-ui',
+            ), 'vendor');
 
-        queue_css_url($cssurl.'viewer.css');
-        queue_css_url($cssurl.'jquery-ui.toggleSwitch.css');
-        queue_css_url($cssurl.'jquery-ui-1.8.16.custom.css');
-        queue_css_url($cssurl.'font-awesome.css');
-
-        queue_css_url($cssurl.'jquery.fancybox.css');
-        queue_css_url($cssurl.'jquery.fancybox-buttons.css');
-        queue_css_url($cssurl.'jquery.fancybox-thumbs.css');
-        queue_css_url($cssurl.'jplayer.blue.monday.css');
-
-        queue_js_url('//ajax.googleapis.com/ajax/libs/jqueryui/1.8.18/jquery-ui.min.js');
-        queue_js_url($jsurl.'jquery-ui.toggleSwitch.js');
-        queue_js_url($jsurl.'viewer_legacy.js');
-        queue_js_url($jsurl.'jquery.jplayer.min.js');
-        queue_js_url($jsurl.'jquery.easing.1.3.js');
-        queue_js_url($jsurl.'jquery.scrollTo-min.js');
-        queue_js_url($jsurl.'fancybox_2_1_5/source/jquery.fancybox.pack.js');
-        queue_js_url($jsurl.'fancybox_2_1_5/source/helpers/jquery.fancybox-buttons.js');
-        queue_js_url($jsurl.'fancybox_2_1_5/source/helpers/jquery.fancybox-media.js');
-        queue_js_url($jsurl.'fancybox_2_1_5/source/helpers/jquery.fancybox-thumbs.js');
+        queue_js_file(array(
+                'jquery-ui.toggleSwitch.js',
+                'viewer_legacy.js',
+                'jquery.jplayer.min.js',
+                'jquery.easing.1.3.js',
+                'jquery.scrollTo-min.js',
+                'fancybox_2_1_5/source/jquery.fancybox.pack.js',
+                'fancybox_2_1_5/source/helpers/jquery.fancybox-buttons.js',
+                'fancybox_2_1_5/source/helpers/jquery.fancybox-media.js',
+                'fancybox_2_1_5/source/helpers/jquery.fancybox-thumbs.js',
+            ), 'javascripts/ohmsviewer/js');
     }
 
     /**
@@ -152,22 +155,14 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
             return;
         }
 
-        $libDir = dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/';
-        $config = parse_ini_file($libDir."config/config.ini",true);
+        $configIni = physical_path_to('javascripts/ohmsviewer/config/config.ini');
+        $config = parse_ini_file($configIni, true);
 
+        require_once physical_path_to('javascripts/ohmsviewer/lib/CacheFile.class.php');
 
         $cachefile = isset($params['cacheFileName'][0]) ? $params['cacheFileName'][0] : $params['cacheFileName'];
-
         $cachefile = isset($cachefile['path']) ? $cachefile['path'] : $cachefile;
-
-        require_once dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/lib/CacheFile.class.php';
-        
-        //$plugin_dir = dirname(dirname(dirname(__FILE__)));
-        $plugin_dir = dirname($_SERVER["SCRIPT_FILENAME"]).'/plugins/MultimediaDisplay';
-        $cacheFile = CacheFile::getInstance($cachefile,dirname(dirname($plugin_dir)).'/files',$config);
-        //$cacheFile = CacheFile::getInstance($cachefile,'/var/www/html/omeka/files',$config);
-        //dirname(dirname(dirname(dirname(__FILE__)))).'/files'
-
+        $cacheFile = CacheFile::getInstance($cachefile, FILES_DIR, $config);
 
         ob_start();
         ?>
@@ -183,9 +178,9 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
 		}
 	</script>
         <div id="audio-panel">
-        <?php 
-                        //include_once dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/tmpl/player_'.$cacheFile->playername.'.tmpl.php'; 
-        include_once dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/tmpl/player_legacy.tmpl.php'; 
+        <?php
+        //include_once physical_path_to('javascripts/ohmsviewer/tmpl/player_' . $cacheFile->playername . '.tmpl.php');
+        include_once physical_path_to('javascripts/ohmsviewer/tmpl/player_legacy.tmpl.php');
 ?>
         </div>
         <div id="ohms-main">
@@ -200,7 +195,7 @@ class Mmd_Ohms_Viewer extends Mmd_Abstract_Viewer
               </div>
             </div>
             <div id="searchbox-panel">
-              <?php include_once dirname(dirname(dirname(__FILE__))).'/libraries/ohmsviewer/tmpl/search.tmpl.php'; ?></div>
+              <?php include_once physical_path_to('javascripts/ohmsviewer/tmpl/search.tmpl.php'); ?></div>
             </div>
           </div>
         </div>

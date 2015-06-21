@@ -93,11 +93,7 @@ class Mmd_Kaltura_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        //$libUrl = absolute_url('plugins/MultimediaDisplay/libraries/kaltura/');
-        //$libUrl = str_replace('admin/','',$libUrl);
-        
     }
-
 
     /**
      * Retrieve body html
@@ -108,8 +104,6 @@ class Mmd_Kaltura_Viewer extends Mmd_Abstract_Viewer
      * linking to stylesheets and javascript libraries
      */
     public function getBodyHtml($params) {
-        $liburl = absolute_url('plugins/MultimediaDisplay/libraries/kaltura/');
-        $liburl = str_replace('admin/','',$liburl);
 ?>
 
         <script type="text/javascript" src="http://www.kaltura.com/p/475671/sp/47567100/embedIframeJs/uiconf_id/<?php echo $params['uiconfID'];?>/partner_id/475671"></script>

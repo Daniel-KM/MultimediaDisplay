@@ -86,16 +86,15 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
      * @return null
      */
     public function viewerHead($params) {
-        if(is_array($params['url'])) {           
-            $liburl = absolute_url('/plugins/MultimediaDisplay/libraries/bookreader/','',array(),true);
-            $liburl = str_replace('admin/','',$liburl);
-
-            queue_js_url('http://www.archive.org/bookreader/jquery-ui-1.8.5.custom.min.js');
-            queue_js_url('http://www.archive.org/bookreader/dragscrollable.js');
-            queue_js_url('http://www.archive.org/bookreader/jquery.colorbox-min.js');
-            queue_js_url('http://www.archive.org/bookreader/jquery.ui.ipad.js');
-            queue_js_url('http://www.archive.org/bookreader/jquery.bt.min.js');
-            queue_js_url($liburl.'BookReader.js');
+        if(is_array($params['url'])) {
+            queue_js_file(array(
+                    'jquery-ui-1.8.5.custom.min',
+                    'dragscrollable',
+                    'jquery.colorbox-min',
+                    'jquery.ui.ipad',
+                    'jquery.bt.min',
+                    'BookReader',
+                ), 'javascripts/bookreader');
         }
     }
 
