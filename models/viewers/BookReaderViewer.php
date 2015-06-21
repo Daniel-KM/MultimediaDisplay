@@ -87,7 +87,13 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
      */
     public function viewerHead($params) {
         if(is_array($params['url'])) {
+            queue_css_file(array(
+                    'BookReader',
+                    'BookReaderEmbed',
+                ), 'all', false, 'javascripts/bookreader');
+
             queue_js_file(array(
+                    'jquery.min',
                     'jquery-ui-1.8.5.custom.min',
                     'dragscrollable',
                     'jquery.colorbox-min',
@@ -121,35 +127,130 @@ class Mmd_BookReader_Viewer extends Mmd_Abstract_Viewer
             <?php 
             //'.$params[''].'
             ?></div>
-            <?php
-            //return;
-        } else {
-?>
-        
-        <div id="BookReader"></div>
-        <script type="text/javascript">
-        jQuery('#bookreader').prependTo(jQuery('#content'));
-        br = new BookReader();
-        bookreader("bookreader", ArchiveBook("tomsawyer"));
-
-        br.getPageWidth = function(index) {
-            return <?php echo (integer) $params['width']; ?>;
-        }
-        br.getPageHeight = function(index) {
-            return <?php echo (integer) $params['height']; ?>;
-        }
-        br.bookTitle= '';
-        br.bookUrl  = 'http://openlibrary.org';
-        br.init();
-
-        </script>
-<?php  }  ?>
-        
         <script type="text/javascript">
         jQuery('#content').find('h1').after(jQuery('#bookreader-div'));
         </script>
+            <?php
+            return;
+        }
 
-        <?php
-        return true;
+        // Build the BookReader from files of the item.
+        $brDir = WEB_PLUGIN . '/MultimediaDisplay/views/shared/javascripts/bookreader/';
+        $urls = array();
+        // Width and Height can't be set, because item is unknown,
+        // so it will be forced below.
+        // $pageWidths = array();
+        // $pageHeights= array();
+        // $pageNums = array();
+        // $pageLabels = array();
+        foreach ($params['url'] as $url) {
+            $urls[] = $url['url'];
+        }
+?>
+    <style>
+        #BookReader {
+            padding-bottom: 20px !important;
+            position: relative;
+            overflow: hidden;
+            height: <?php echo $params['height']; ?>;
+            max-height: <?php echo $params['height']; ?>;
+            max-width: <?php echo $params['width']; ?>;
+            width: <?php echo $params['width']; ?>;
+        }
+        div#BRnav {
+            position: absolute;
+        }
+    </style>
+
+    <div id="BookReader"></div>
+    <script type="text/javascript">
+        jQuery('#content').find('h1').after(jQuery('#BookReader'));
+
+        br = new BookReader();
+
+        var urls = <?php echo json_encode($urls); ?>;
+    <?php /*
+        // br.pageWidths = <?php echo json_encode($pageWidths); ?>;
+        // br.pageHeights = <?php echo json_encode($pageHeights); ?>;
+        // br.pageNums = <?php echo json_encode($pageNums); ?>;
+        // br.pageLabels = <?php echo json_encode($pageLabels); ?>;
+    */ ?>
+        // TODO Use the title of the item only.
+        br.bookTitle= $('title').text();
+        br.bookUrl  = <?php echo json_encode(WEB_ROOT); ?>;
+        br.numLeafs = urls.length;
+        br.imagesBaseURL = <?php echo json_encode($brDir . 'images/'); ?>;
+
+        // bookreader("bookreader", ArchiveBook("tomsawyer"));
+        br.getPageWidth = function(index) {
+            // TODO Return the true width or a default.
+            return <?php echo (integer) $params['width']; ?>;
+        }
+        br.getPageHeight = function(index) {
+            // TODO Return the true height or a default.
+            return <?php echo (integer) $params['height']; ?>;
+        }
+        br.getPageURI = function(index, reduce, rotate) {
+            url = urls[index];
+            return url;
+        }
+        br.getPageSide = function(index) {
+            if (0 == (index & 0x1)) {
+                return 'R';
+            } else {
+                return 'L';
+            }
+        }
+        br.canRotatePage = function(index) {
+            return false;
+        }
+        br.getPageNum = function(index) {
+            return index+1;
+        }
+        br.getSpreadIndices = function(pindex) {
+            var spreadIndices = [null, null];
+            if ('rl' == this.pageProgression) {
+                // Right to Left
+                if (this.getPageSide(pindex) == 'R') {
+                    spreadIndices[1] = pindex;
+                    spreadIndices[0] = pindex + 1;
+                } else {
+                    // Given index was LHS
+                    spreadIndices[0] = pindex;
+                    spreadIndices[1] = pindex - 1;
+                }
+            } else {
+                // Left to right
+                if (this.getPageSide(pindex) == 'L') {
+                    spreadIndices[0] = pindex;
+                    spreadIndices[1] = pindex + 1;
+                } else {
+                    // Given index was RHS
+                    spreadIndices[1] = pindex;
+                    spreadIndices[0] = pindex - 1;
+                }
+            }
+
+            return spreadIndices;
+        }
+        br.buildInfoDiv = function(jInfoDiv) {
+        }
+        br.getEmbedURL = function(viewParams) {
+            var url = <?php echo json_encode(WEB_ROOT) /* TODO Use the item url. */; ?>;
+            return url;
+        }
+        br.getEmbedCode = function(frameWidth, frameHeight, viewParams) {
+            return "<iframe src='" + this.getEmbedURL(viewParams) + "' width='" + frameWidth + "' height='" + frameHeight + "' frameborder='0' ></iframe>";
+        }
+
+        br.init();
+
+        $('#BRtoolbar').find('.read').hide();
+        $('#BRreturn').html($('#BRreturn').text());
+        $('#textSrch').hide();
+        $('#btnSrch').hide();
+
+        </script>
+<?php
     }
 }
