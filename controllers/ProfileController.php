@@ -85,7 +85,8 @@ class MultimediaDisplay_ProfileController extends Omeka_Controller_AbstractActio
               $assign->delete();
           }
 
-          if($profile = get_record_by_id('MmdProfile',$profile_id)) {
+          $profile = get_record_by_id('MmdProfile', $profile_id);
+          if ($profile) {
               $profile->delete();
               $flashMessenger->addMessage('Profile deleted successfully','success');
           } else {

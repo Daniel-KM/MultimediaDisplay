@@ -30,9 +30,9 @@ class MultimediaDisplay_AjaxController extends Omeka_Controller_AbstractActionCo
     $viewerClass = $viewers[$viewerName]['class'];
     $viewer = new $viewerClass();
     $params = $viewer->getParameterInfo();
-            
+
     foreach($params as $param) {
-        $element = new Mmd_Form_Element_Viewparam($viewerName,$param);
+        $element = new MultimediaDisplay_Form_Element_DisplayParam ($viewerName, $param);
     }
 
     //$element = new Zend_Form_Element_Text("newName$id");

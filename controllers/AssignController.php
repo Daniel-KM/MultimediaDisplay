@@ -80,7 +80,8 @@ class MultimediaDisplay_AssignController extends Omeka_Controller_AbstractAction
       //delete the assignment
       $assign_id = $this->_getParam('assign');
       try{
-          if($assign = get_record_by_id('MmdAssign',$assign_id)) {
+          $assign = get_record_by_id('MmdAssign',$assign_id);
+          if ($assign) {
               $assign->delete();
               $flashMessenger->addMessage('Assignment deleted successfully','success');
           } else {
