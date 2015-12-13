@@ -56,7 +56,7 @@ abstract class MultimediaDisplay_Viewer_Abstract
             $id = $itemType->save();
         }
 
-        require_once(dirname(dirname(dirname(__FILE__))).'/models/MmdProfile.php');
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/models/MmdProfile.php';
         $profile = new MmdProfile();
         $profile->setViewer($this);
         $profile->name = $params['profileName'];
@@ -115,7 +115,7 @@ abstract class MultimediaDisplay_Viewer_Abstract
         $profile->save();
         $profile_id = $profile->id;
 
-        require_once(dirname(dirname(dirname(__FILE__))).'/models/MmdAssign.php');
+        require_once dirname(dirname(dirname(dirname(__FILE__)))) . '/models/MmdAssign.php';
         
         $assign = new MmdAssign();
         $assign->item_type_id = $item_type_id;

@@ -41,7 +41,7 @@ if(empty($profiles)) {
           <a href="<?php echo url('multimedia-display/profile/edit/profile/'.$profile->id);?>">
              <?php echo($profile->name); ?>
           </a>
-        </td class="mmd-profile-viewer">
+        </td>
         <td>
            <?php echo($profile->viewer); ?>
         </td>

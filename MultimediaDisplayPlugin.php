@@ -199,22 +199,27 @@ class MultimediaDisplayPlugin extends Omeka_Plugin_AbstractPlugin
 
     /**
      * Add viewer markup to public item display pages
-     * 
+     *
      * @param array $args An array of parameters passed by the hook
      * @return void
      */
     public function hookPublicItemsShow($args)
     {
-        $item = get_current_record('Item');
-        if(empty($item))
-            break;
-        $profile = $this->_db->getTable('MmdProfile')->getPrimaryAssignedProfile($item);
-        if(empty($profile))
+        $item = $args['item'];
+        if (empty($item)) {
             return;
+        }
+
+        $profile = $this->_db->getTable('MmdProfile')->getPrimaryAssignedProfile($item);
+        if (empty($profile)) {
+            return;
+        }
+
         try{
             echo $profile->getBodyHtml();
         } catch (Exception $e) {
-            echo "<h3>Error loading viewer</h3><p>".$e->getMessage()."</p>";
+            echo '<h3>' . __('Error loading viewer') . '</h3>'
+                . '<p>' . $e->getMessage() . '</p>';
         }
     }
 

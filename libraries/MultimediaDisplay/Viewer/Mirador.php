@@ -156,7 +156,7 @@ class MultimediaDisplay_Viewer_Mirador extends MultimediaDisplay_Viewer_Abstract
         ob_start();
 ?>
         <div id="viewer"></div>
-        <script type="text/javascript" src="<?php echo src('javascripts/mirador/MiradorDeploy.js'); ?>" />
+        <script type="text/javascript" src="<?php echo src('javascripts/mirador/MiradorDeploy.js'); ?>"></script>
 <?php
         return ob_get_clean();
     }

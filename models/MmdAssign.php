@@ -48,25 +48,29 @@ class MmdAssign extends Omeka_Record_AbstractRecord
     public $filetypes;
 
     public function getProfileName() {
-        if(is_numeric($this->profile_id)) {
-            $profile = get_record_by_id('MmdProfile',$this->profile_id);
-            return $profile->name;
+        if (is_numeric($this->profile_id) && $this->profile_id > 0) {
+            $profile = get_record_by_id('MmdProfile', $this->profile_id);
+            if ($profile) {
+                return $profile->name;
+            }
         }
     }
 
     public function getItemTypeName() {
-        if(is_numeric($this->item_type_id)) {
-            $itemType = get_record_by_id('ItemType',$this->item_type_id);
-            return $itemType->name;
+        if (is_numeric($this->item_type_id) && $this->item_type_id > 0) {
+            $itemType = get_record_by_id('ItemType', $this->item_type_id);
+            if ($itemType) {
+                return $itemType->name;
+            }
         }
     }
 
     public function getCollectionName() {
-        if(is_numeric($this->collection_id) && $this->collection_id > 0) {
-            $collection = get_record_by_id('Collection',$this->collection_id);
-            return $collection->name;
+        if (is_numeric($this->collection_id) && $this->collection_id > 0) {
+            $collection = get_record_by_id('Collection', $this->collection_id);
+            if ($collection) {
+                return $collection->name;
+            }
         }
     }
 }
-
-?>

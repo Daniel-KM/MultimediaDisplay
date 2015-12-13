@@ -22,14 +22,15 @@ class Table_MmdProfile extends Omeka_Db_Table
     {
         $alias = $this->getTableAlias();
         return array($alias . '.id', $alias . '.name');
-    } 
+    }
 
     /**
      * Retrieve currently assigned profiles
      *
      * return array An array of active profile records
      */
-    public function getActiveProfiles() {
+    public function getActiveProfiles()
+    {
         $activeProfiles=array();
         return $activeProfiles;
     }
@@ -42,7 +43,8 @@ class Table_MmdProfile extends Omeka_Db_Table
      * if the item is not assigned to a profile.
      */
 
-    public function getAssignedProfiles($item) {
+    public function getAssignedProfiles($item)
+    {
         if(is_numeric($item))
             $item_id = $item;
         else if(is_object($item))
@@ -72,7 +74,7 @@ class Table_MmdProfile extends Omeka_Db_Table
                 $flag = false;
                 foreach($files as $file) {
                     //TODO does $file->getExtension include period? case? formatting? Should I maybe test mimetype as well, or is that just too unwieldly?
-                    if(in_array($file->getExtension,$filetypes))
+                    if (in_array($file->getExtension(), $filetypes))
                         $flag = true;
                 }
                 if(!$flag)
@@ -86,11 +88,10 @@ class Table_MmdProfile extends Omeka_Db_Table
     /**
      * Retrieve the first profile assigned to a given item or item id
      */
-  public function getPrimaryAssignedProfile($item) {
+  public function getPrimaryAssignedProfile($item)
+  {
         $profiles = $this->getAssignedProfiles($item);
         if(count($profiles)>0)
             return $profiles[0];
     }
-
 }
-?>

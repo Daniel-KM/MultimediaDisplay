@@ -13,10 +13,11 @@
 <span id="alert"></span>
 
 <form id="search-form" onSubmit="return false;" name="search-form">
+<fieldset>
     <?php if ($cacheFile->hasIndex()) { ?>
-  <fieldset><legend id="search-legend">Search This Index</legend>
+  <legend id="search-legend">Search This Index</legend>
     <?php } else { ?>
-  <fieldset><legend id="search-legend">Search This Transcript</legend>
+  <legend id="search-legend">Search This Transcript</legend>
     <?php } ?>
   <input class="kw-empty" id="kw" name="kw" size="30" value="Keyword" /><br />
   <a href="#" class="search-button" id="submit-btn">Search</a><a href="#" class="searchclear-button" id="clear-btn">Clear</a>

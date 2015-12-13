@@ -41,7 +41,7 @@ if(empty($assigns)) {
           <a href="<?php echo url('multimedia-display/assign/edit/assign/'.$assign->id);?>">
             <?php echo($assign->getProfileName()); ?>
           </a>
-        </td class="mmd-assign-item-type">
+        </td>
         <td>
            <?php echo($assign->getItemTypeName()); ?>
         </td>

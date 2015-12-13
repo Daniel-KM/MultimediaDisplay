@@ -195,7 +195,7 @@ class MultimediaDisplay_Viewer_Ohms extends MultimediaDisplay_Viewer_Abstract
               </div>
             </div>
             <div id="searchbox-panel">
-              <?php include_once physical_path_to('javascripts/ohmsviewer/tmpl/search.tmpl.php'); ?></div>
+              <?php include_once physical_path_to('javascripts/ohmsviewer/tmpl/search.tmpl.php'); ?>
             </div>
           </div>
         </div>

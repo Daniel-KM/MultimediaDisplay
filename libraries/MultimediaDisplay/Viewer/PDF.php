@@ -125,8 +125,8 @@ class MultimediaDisplay_Viewer_PDF extends MultimediaDisplay_Viewer_Abstract
 
         <div id="pdf-container">
 
-        <button id="prev" class="pdf-nav-button"><</button>
-        <button id="next" class="pdf-nav-button">></button>
+        <button id="prev" class="pdf-nav-button">&lt;</button>
+        <button id="next" class="pdf-nav-button">&gt;</button>
 
         <div id="pdf-viewer-controls">
 
