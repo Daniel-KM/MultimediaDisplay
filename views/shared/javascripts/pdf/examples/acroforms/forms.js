@@ -1,5 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 
 //
 // Basic AcroForms input controls rendering
@@ -150,4 +148,3 @@ PDFJS.getDocument(pdfWithFormsPath).then(function getPdfForm(pdf) {
     renderPage(viewer, pdf, pageNumber++, pageRenderingComplete);
   });
 });
-

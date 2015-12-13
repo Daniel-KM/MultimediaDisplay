@@ -11,7 +11,9 @@
   <script src="../../src/display/webgl.js"></script>
   <script src="../../src/display/pattern_helper.js"></script>
   <script src="../../src/display/font_loader.js"></script>
+  <script src="../../src/display/dom_utils.js"></script>
   <script src="../../src/display/annotation_helper.js"></script>
+  <script src="../../src/display/text_layer.js"></script>
 
   <script>
     // Specify the main script used to create a new PDF.JS web worker.
@@ -21,7 +23,7 @@
     // Specify the PDF with AcroForm here
     var pdfWithFormsPath = '../../test/pdfs/f1040.pdf';
   </script>
-  
+
   <style>
   .pdfpage { position:relative; top: 0; left: 0; border: solid 1px black; margin: 10px; }
   .pdfpage > canvas { position: absolute; top: 0; left: 0; }

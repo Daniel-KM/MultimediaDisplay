@@ -1,5 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 /* Any copyright is dedicated to the Public Domain.
  * http://creativecommons.org/publicdomain/zero/1.0/ */
 
@@ -63,7 +61,7 @@ PDFJS.getDocument(data).then(function (doc) {
       var viewport = page.getViewport(1.0 /* scale */);
       console.log('Size: ' + viewport.width + 'x' + viewport.height);
       console.log();
-      
+
       return page.getOperatorList().then(function (opList) {
         var svgGfx = new PDFJS.SVGGraphics(page.commonObjs, page.objs);
         svgGfx.embedFonts = true;
@@ -74,7 +72,7 @@ PDFJS.getDocument(data).then(function (doc) {
       });
     })
   };
-  
+
   for (var i = 1; i <= numPages; i++) {
     lastPromise = lastPromise.then(loadPage.bind(null, i));
   }
@@ -84,4 +82,3 @@ PDFJS.getDocument(data).then(function (doc) {
 }, function (err) {
   console.error('Error: ' + err);
 });
-

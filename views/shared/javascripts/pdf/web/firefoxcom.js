@@ -1,4 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /* Copyright 2012 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -89,7 +88,7 @@ var DownloadManager = (function DownloadManagerClosure() {
     downloadData: function DownloadManager_downloadData(data, filename,
                                                         contentType) {
       var blobUrl = PDFJS.createObjectURL(data, contentType);
-      
+
       FirefoxCom.request('download', {
         blobUrl: blobUrl,
         originalUrl: blobUrl,

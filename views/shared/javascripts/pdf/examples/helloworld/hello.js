@@ -1,5 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 
 //
 // See README for overview
@@ -34,4 +32,3 @@ PDFJS.getDocument('helloworld.pdf').then(function(pdf) {
     page.render(renderContext);
   });
 });
-

@@ -1,5 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 /* Copyright 2012 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -25,7 +23,7 @@ Promise.prototype = {
   resolve: function (result) {
     if ('result' in this) return;
     this.result = result;
-    if ('callback' in this) this.callback(result); 
+    if ('callback' in this) this.callback(result);
   }
 };
 
@@ -665,4 +663,3 @@ function checkCanvas(font) {
     colors[2][2] * 3 < counts[2][2];
   return isPlus;
 }
-

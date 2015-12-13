@@ -12,11 +12,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+/* jshint esnext:true, maxlen:100 */
+
+'use strict';
 
 // Don't remove this file. FF15+ expects PdfJs module to be present at resource://pdf.js/PdfJs.jsm
 // See https://mxr.mozilla.org/mozilla-central/source/browser/components/nsBrowserGlue.js
-var EXPORTED_SYMBOLS = ["PdfJs"];
+var EXPORTED_SYMBOLS = ['PdfJs'];
 
-let PdfJs = {
+var PdfJs = {
   init: function PdfJs_init() {}
 };

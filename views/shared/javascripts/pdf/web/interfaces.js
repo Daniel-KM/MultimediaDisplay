@@ -1,4 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
 /* Copyright 2014 Mozilla Foundation
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
@@ -51,6 +50,23 @@ IPDFLinkService.prototype = {
    * @param {string} action
    */
   executeNamedAction: function (action) {},
+
+  /**
+   * @param {number} pageNum - page number.
+   * @param {Object} pageRef - reference to the page.
+   */
+  cachePageRef: function (pageNum, pageRef) {},
+};
+
+/**
+ * @interface
+ */
+function IPDFHistory() {}
+IPDFHistory.prototype = {
+  forward: function () {},
+  back: function () {},
+  push: function (params) {},
+  updateNextHashParam: function (hash) {},
 };
 
 /**
@@ -67,19 +83,35 @@ IRenderableView.prototype = {
    */
   get renderingState() {},
   /**
-   * @param {function} callback - The draw completion callback.
+   * @returns {Promise} Resolved on draw completion.
    */
-  draw: function (callback) {},
+  draw: function () {},
   resume: function () {},
 };
 
 /**
  * @interface
  */
-function ILastScrollSource() {}
-ILastScrollSource.prototype = {
+function IPDFTextLayerFactory() {}
+IPDFTextLayerFactory.prototype = {
   /**
-   * @returns {number}
+   * @param {HTMLDivElement} textLayerDiv
+   * @param {number} pageIndex
+   * @param {PageViewport} viewport
+   * @returns {TextLayerBuilder}
    */
-  get lastScroll() {},
+  createTextLayerBuilder: function (textLayerDiv, pageIndex, viewport) {}
+};
+
+/**
+ * @interface
+ */
+function IPDFAnnotationsLayerFactory() {}
+IPDFAnnotationsLayerFactory.prototype = {
+  /**
+   * @param {HTMLDivElement} pageDiv
+   * @param {PDFPage} pdfPage
+   * @returns {AnnotationsLayerBuilder}
+   */
+  createAnnotationsLayerBuilder: function (pageDiv, pdfPage) {}
 };

@@ -1,5 +1,3 @@
-/* -*- Mode: Java; tab-width: 2; indent-tabs-mode: nil; c-basic-offset: 2 -*- */
-/* vim: set shiftwidth=2 tabstop=2 autoindent cindent expandtab: */
 /* globals expect, it, describe, beforeEach, Name, Dict, Ref, RefSet, Cmd,
            jasmine */
 
@@ -148,4 +146,3 @@ describe('obj', function() {
     });
   });
 });
-
